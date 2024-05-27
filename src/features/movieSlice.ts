@@ -31,8 +31,6 @@ export const movieSlice = createSlice({
     toggleBookMark(state, action: PayloadAction<Movie>) {
       const obj = action.payload;
 
-      // const obj = { ...obj, selected: true }; //The additional property i added is for me to be able to change the bookmark icon to to know if a movie has been bookmarked or not
-
       const existingMovie = state.bookMarkArr.find(
         (mark) => mark.id === obj.id
       );

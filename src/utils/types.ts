@@ -110,9 +110,8 @@ export interface MovieDetail {
   vote_count: number;
 }
 
-//Our payload, the type it is having
 
-export type TextString = ""
+export type TextString = string
 
 
 export interface TrialerVid {
