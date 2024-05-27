@@ -1,0 +1,112 @@
+
+.css-1wvake5 {
+position: fixed !important;
+    border-right-width: 1px;
+    border-right-style: solid;
+    /* border-color: #efefef; */
+    -webkit-transition: width, left, right, 300ms;
+    transition: width, left, right, 300ms;
+    width: 10vw !important;
+    min-width: 10vw !important;
+    height: 100vh !important;
+    /* height: 100%; */
+    
+    
+    
+}
+
+
+.css-dip3t8 {
+    background-color: rgb(2, 8, 23) !important;
+ width: 100%;
+ /* height: 100% !important; */
+ position: relative;
+ overflow-y: auto;
+ overflow-x: hidden;
+ z-index: 3;
+ 
+ 
+}
+
+.css-vj11vy{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    
+}
+
+
+.css-ewdv3l div:first-child{
+padding: 2vh 0;
+}
+
+.css-ewdv3l{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 2vh;
+    
+}
+
+.css-1t8x7v1:nth-child(4){
+    /* margin-top: 5vh; */
+    margin-bottom: 10vh;
+}
+/* .rfm-marquee {
+    overflow-x: hidden !important;
+    flex: 0 0 auto;
+    min-width: var(--min-width);
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    animation: scroll var(--duration) linear var(--delay) var(--iteration-count);
+    animation-play-state: var(--play);
+    animation-delay: var(--delay);
+    animation-direction: var(--direction);
+} */
+
+.rfm-marquee-container {
+    overflow-x: hidden;
+    display:flex;
+    flex-direction: row;
+    position: relative;
+    width: 100% !important;
+    transform: var(--transform);
+}
+
+.rfm-marquee {
+    flex: 0 0 auto;
+    /* width: 30vw; */
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    animation: scroll var(--duration) linear var(--delay) var(--iteration-count);
+    animation-play-state: var(--play);
+    animation-delay: var(--delay);
+    animation-direction: var(--direction);
+}
+
+.title, .date{
+    color: white;
+    text-shadow:  1px 1px 2px purple;
+}
+
+
+.toggle-mode{
+    position: fixed;
+    top: 0.5vh;
+    right: 4vw;
+    color: #f43f5e;
+    z-index: 1;
+  }
+
+.my-css-custom{
+    /* background-blend-mode: multiply;*/
+    background-color: rgba(0, 0, 0, 0.3); 
+}
+
+
