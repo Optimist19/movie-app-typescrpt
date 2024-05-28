@@ -2,8 +2,6 @@ import { useEffect } from "react";
 
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
-import { ToastContainer, toast } from "react-toastify";
-
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -11,7 +9,7 @@ import { Link } from "react-router-dom";
 
 import SkeletonComp from "./SkeletonComp";
 
-import { LuBookmark } from "react-icons/lu";
+import { FaBookmark } from "react-icons/fa6";
 
 import { fetchLatestMovies } from "@/services/fetchMovies";
 
@@ -22,26 +20,22 @@ import { useInView } from "react-intersection-observer";
 function LastestMovie() {
   const { ref, inView } = useInView();
 
-  const {
-    data,
-    isFetching,
-    fetchNextPage,
-    isFetchingNextPage,
-    hasNextPage
-  } = useInfiniteQuery({
-    queryKey: ["lastestMovie"],
-    queryFn: fetchLatestMovies,
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      const nextPage = lastPage.results.length
-        ? allPages.length + 1
-        : undefined;
-      return nextPage;
-    }
-  });
+  const { data, isFetching, fetchNextPage, isFetchingNextPage, hasNextPage } =
+    useInfiniteQuery({
+      queryKey: ["lastestMovie"],
+      queryFn: fetchLatestMovies,
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, allPages) => {
+        const nextPage = lastPage.results.length
+          ? allPages.length + 1
+          : undefined;
+        return nextPage;
+      }
+    });
 
   const dispatch = useAppDispatch();
   const { bookMarkArr } = useAppSelector((state) => state.movies);
+  // console.log(data, "data")
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -50,47 +44,21 @@ function LastestMovie() {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  function addedToBookMarkAlert(title: string, id: number) {
-    const isExist = bookMarkArr.find((bookmark) => bookmark.id === id);
-    if (isExist) {
-      console.log("gooo");
-      toast(`${title} removed`, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light"
-        // transition: Bounce,
-      });
-    } else {
-      console.log("gooo");
-      toast(`${title} added`, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light"
-        // transition: Bounce,
-      });
-    }
-  }
-
-  console.log(isFetchingNextPage, "isFetchingNextPage");
-
   const loadingSign = Array.from({ length: 9 }, (_, index) => index + 1);
 
-  // const result =
+  // function addedToBookMarkAlert(title: string, id: number) {
+  //   const isExist = bookMarkArr.find((bookmark) => bookmark.id === id);
+  //   if (isExist) {
+  //     alert(`${title} removed`);
+  //   } else {
+  //     alert(`${title} added`);
+  //   }
+  // }
 
   return (
     <section>
-      <div>
-        <div className="text-lg font-bold mb-4">Recommended for you</div>
+      <div className="top-con w-[85vw] mx-auto">
+        <p className="text-lg font-bold mb-4 pl-16">Recommended for you</p>
         <div>
           <div className="">
             <div className="flex justify-center flex-wrap gap-3">
@@ -127,15 +95,22 @@ function LastestMovie() {
                                     {obj.release_date}
                                   </p>
                                 </CardFooter>
-                                <div className="absolute top-3 right-3">
-                                  <LuBookmark
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      e.stopPropagation();
-                                      dispatch(toggleBookMark(obj));
-                                      addedToBookMarkAlert(obj.title, obj.id);
-                                    }}
-                                  />
+                                <div
+                                  className="absolute top-3 right-3"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+
+                                    dispatch(toggleBookMark(obj));
+                                    // addedToBookMarkAlert(obj.title, obj.id);
+                                  }}>
+                                  {bookMarkArr.find(
+                                    (bookmark) => bookmark.id === obj.id
+                                  ) ? (
+                                    <FaBookmark className="text-red-500" />
+                                  ) : (
+                                    <FaBookmark className="text-slate-500" />
+                                  )}
                                 </div>
                               </Card>
                             </Link>
@@ -154,19 +129,6 @@ function LastestMovie() {
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        // transition: Bounce,
-      />
     </section>
   );
 }

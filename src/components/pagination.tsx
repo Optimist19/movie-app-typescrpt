@@ -1,12 +1,12 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { sample } from "@/services/fetchMovies";
+import { pagination } from "@/services/fetchMovies";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
 
 // This component is for reference for infinite scroll pagination
 
-export default function Sample() {
+export default function Pagination() {
   const { ref, inView } = useInView();
 
   const {
@@ -18,7 +18,7 @@ export default function Sample() {
     hasNextPage
   } = useInfiniteQuery({
     queryKey: ["projects"],
-    queryFn: sample,
+    queryFn: pagination,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = lastPage.results.length
@@ -72,9 +72,8 @@ export default function Sample() {
         </button>
       </div>
       {/* {isFetchingNextPage && <h3>Loading...</h3>} */}
-
-
-      {/* {you can remove the 'ref={ref}' here and put it on the div where we map our results so that we will not be needing the button above to fetch the next page for us, the third party library has handled it for us with the useEffect. So we will comment out th button and uncomment the '{isFetchingNextPage && <h3>Loading...</h3>} */}'} */}
     </div>
   );
 }
+
+//  you can remove the 'ref={ref}' here and put it on the div where we map our results so that we will not be needing the button above to fetch the next page for us, the third party library has handled it for us with the useEffect. So we will comment out th button and uncomment the '{isFetchingNextPage && <h3>Loading...</h3>}

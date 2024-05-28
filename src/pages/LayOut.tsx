@@ -41,12 +41,12 @@ const tv = () =>{
 
 function LayOut() {
   return (
-    <div style={{ display: "flex", minHeight: "400px" }}>
-      <Sidebar className="text-slate-400">
+    <div>
+      <Sidebar className="text-slate-400 navbar">
         <Menu>
           <div>
             <MenuItem>
-              <GrMultimedia />
+              <GrMultimedia className="text-2xl" />
             </MenuItem>
           </div>
           <div>
@@ -73,7 +73,7 @@ function LayOut() {
           </div>
         </Menu>
       </Sidebar>
-      <main style={{ padding: 10 }}>
+      <main>
         
 
         <div className="ml-[10vw]">

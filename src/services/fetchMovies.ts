@@ -40,7 +40,7 @@ export async function fetchLatestMovies({pageParam}: {pageParam: number}): Promi
   );
   const data: FetchMoviesResponse = await response.json();
 
-  console.log(data, "first")
+  // console.log(data, "first")
   return data
 }
 
@@ -59,7 +59,7 @@ export async function movieDetails(id:string): Promise<MovieDetail>{
 
   const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
   const data = await response.json()
-  console.log(data, "dat")
+  // console.log(data, "dat")
   return data
 }
 
@@ -103,7 +103,7 @@ export async function movieTriller(id:number): Promise<TrialerVid[]>{
 
 
 
-export async function sample({pageParam}: {pageParam: number}): Promise<FetchMoviesResponse> {
+export async function pagination({pageParam}: {pageParam: number}): Promise<FetchMoviesResponse> {
 
   // console.log(props, "props")
   const response = await fetch(

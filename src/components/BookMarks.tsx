@@ -1,14 +1,14 @@
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
 import { Link } from "react-router-dom";
 
-import { LuBookmark } from "react-icons/lu";
+import { TiDelete } from "react-icons/ti";
 import { toggleBookMark } from "@/features/movieSlice";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
-
+import bookmarkImg from "../assets/bookmark.png";
 
 function BookMarks() {
   const { bookMarkArr } = useAppSelector((state) => state.movies);
@@ -19,15 +19,33 @@ function BookMarks() {
   // console.log(bookMarkArr, "bookMarkArr");
 
   if (bookMarkArr.length === 0) {
-    return <p>No Bookmarks yet</p>;
+    return (
+      <div className="relative">
+        <IoMdArrowRoundBack
+          className="text-3xl cursor-pointer absolute top-3 left-2"
+          onClick={() => navigate(-1)}
+        />
+        <div className="flex justify-center items-center h-[100vh]">
+          <div>
+            <img
+              src={bookmarkImg}
+              alt="bookmark image"
+              className="rounded-full"
+            />
+            <p className="text-center font-bold pt-1">NO BOOKMARK YET</p>
+          </div>
+        </div>
+      </div>
+    );
   }
-
 
   return (
     <section>
       <div className="text-lg font-bold mb-4 flex gap-3 items-center">
-        <IoMdArrowRoundBack className="text-2xl cursor-pointer" onClick={() => navigate(-1)} />
-        <p>{ bookMarkArr.length === 1 ? "Your bookmark" : "Your bookmarks"}</p>
+        <IoMdArrowRoundBack
+          className="text-2xl cursor-pointer"
+          onClick={() => navigate(-1)}
+        />
       </div>
 
       <div className=" ">
@@ -50,13 +68,13 @@ function BookMarks() {
                       <p className="text-sm date">{latest.release_date}</p>
                     </CardFooter>
                     <div className="absolute top-3 right-3">
-                      <LuBookmark
+                      <TiDelete
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
                           dispatch(toggleBookMark(latest));
                         }}
-                        className="text-xl"
+                        className="text-xl text-red-600"
                       />
                     </div>
                   </Card>

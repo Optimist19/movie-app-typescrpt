@@ -1,58 +1,41 @@
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toggleBookMark } from "@/features/movieSlice";
 import { useAppSelector, useAppDispatch } from "@/hooks";
-import { LuBookmark } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
 import SkeletonComp from "./SkeletonComp";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { FaBookmark } from "react-icons/fa6";
 
 function SearchResults() {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { movieSearchResult, status, bookMarkArr } = useAppSelector(
     (store) => store.movies
   );
 
-
-  function addedToBookMarkAlert(title: string, id: number) {
-    const isExist = bookMarkArr.find((bookmark) => bookmark.id === id);
-    if (isExist) {
-      // console.log("gooo");
-      toast(`${title} removed`, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light"
-        // transition: Bounce,
-      });
-    } else {
-      // console.log("gooo");
-      toast(`${title} added`, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light"
-        // transition: Bounce,
-      });
-    }
-  }
+  // function addedToBookMarkAlert(title: string, id: number) {
+  //   const isExist = bookMarkArr.find((bookmark) => bookmark.id === id);
+  //   if (isExist) {
+  //     alert(`${title} removed`);
+  //   } else {
+  //     alert(`${title} added`);
+  //   }
+  // }
 
   const loadingSign = Array.from({ length: 9 }, (_, index) => index + 1);
 
   return (
     <section>
-     <div className="text-lg font-bold mb-4 flex gap-3 items-center">
-        <IoMdArrowRoundBack className="text-2xl cursor-pointer" onClick={() => navigate(-1)} />
-        <p>{ movieSearchResult.length === 1 ? "Your Search result" : "Your Search results"}</p>
+      <div className="text-lg font-bold mb-4 flex gap-3 items-center">
+        <IoMdArrowRoundBack
+          className="text-2xl cursor-pointer"
+          onClick={() => navigate(-1)}
+        />
+        <p>
+          {movieSearchResult.length === 1
+            ? "Your Search result"
+            : "Your Search results"}
+        </p>
       </div>
       <div>
         <div className="">
@@ -84,16 +67,22 @@ function SearchResults() {
                       <CardFooter className="absolute bottom-0">
                         <p className="text-sm date">{latest.release_date}</p>
                       </CardFooter>
-                      <div className="absolute top-3 right-3">
-                        <LuBookmark
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            dispatch(toggleBookMark(latest));
-                            addedToBookMarkAlert(latest.title, latest.id);
-                          }}
-                          className="text-xl"
-                        />
+                      <div
+                        className="absolute top-3 right-3"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+
+                          dispatch(toggleBookMark(latest));
+                          // addedToBookMarkAlert(obj.title, obj.id);
+                        }}>
+                        {bookMarkArr.find(
+                          (bookmark) => bookmark.id === latest.id
+                        ) ? (
+                          <FaBookmark className="text-red-500" />
+                        ) : (
+                          <FaBookmark className="text-slate-500" />
+                        )}
                       </div>
                     </Card>
                   </Link>
@@ -101,19 +90,6 @@ function SearchResults() {
             </div>
           )}
         </div>
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          // transition: Bounce,
-        />
       </div>
     </section>
   );

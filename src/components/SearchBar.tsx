@@ -14,12 +14,12 @@ function SearchBar() {
 
   return (
     <div>
-      <div className="py-4 flex items-center gap-x-3">
+      <div className="py-4 flex items-center gap-x-3 pl-16 top-con w-[85vw] mx-auto">
         <label htmlFor="text">
           <CiSearch className="text-2xl" />
         </label>
         <Input id="text"
-          className="w-[20vw]"
+          className="w-[40vw] sm:w-[20vw]"
           placeholder="Search Movies"
           onKeyDown={(e) => {
             const target = e.target as HTMLInputElement

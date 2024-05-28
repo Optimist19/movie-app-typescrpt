@@ -3,17 +3,15 @@ import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Marquee from "react-fast-marquee";
 import { Link } from "react-router-dom";
 
-// import { LuBookmark } from "react-icons/lu";
-
 import { fetchMovies } from "../services/fetchMovies";
 import { useQuery } from "@tanstack/react-query";
-// import { FaFilm } from "react-icons/fa6";
 
 import SkeletonComp from "./SkeletonComp";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { LuBookmark } from "react-icons/lu";
+
+import { FaBookmark } from "react-icons/fa6";
+
 import { toggleBookMark } from "@/features/movieSlice";
-import { ToastContainer, toast } from "react-toastify";
 
 function TopRatedComp() {
   const { data, isLoading } = useQuery({
@@ -21,45 +19,19 @@ function TopRatedComp() {
     queryFn: fetchMovies
   });
 
-  const { bookMarkArr } = useAppSelector((state) => state.movies);
-
-  console.log(bookMarkArr, "bookMarkArr");
-
   const dispatch = useAppDispatch();
-  console.log(bookMarkArr, "selector");
 
   const loadingSign = Array.from({ length: 2 }, (_, index) => index + 1);
 
-  function addedToBookMarkAlert(title: string, id: number) {
-    const isExist = bookMarkArr.find((bookmark) => bookmark.id === id);
-    if (isExist) {
-      console.log("gooo");
-      toast(`${title} removed`, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light"
-        // transition: Bounce,
-      });
-    } else {
-      console.log("gooo");
-      toast(`${title} added`, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light"
-        // transition: Bounce,
-      });
-    }
-  }
+  const { bookMarkArr } = useAppSelector((state) => state.movies);
+  // function addedToBookMarkAlert(title: string, id: number) {
+  //   const isExist = bookMarkArr.find((bookmark) => bookmark.id === id);
+  //   if (isExist) {
+  //     alert(`${title} removed`);
+  //   } else {
+  //     alert(`${title} added`);
+  //   }
+  // }
 
   return (
     <section className="w-full py-4">
@@ -93,16 +65,22 @@ function TopRatedComp() {
                         <p className="text-sm date">{top.release_date}</p>
                       </CardFooter>
                       {/* </Link> */}
-                      <div className="absolute top-3 right-3">
-                        <LuBookmark
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            dispatch(toggleBookMark(top));
-                            addedToBookMarkAlert(top.title, top.id);
-                          }}
-                          className="text-xl"
-                        />
+                      <div
+                        className="absolute top-3 right-3"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+
+                          dispatch(toggleBookMark(top));
+                          // addedToBookMarkAlert(obj.title, obj.id);
+                        }}>
+                        {bookMarkArr.find(
+                          (bookmark) => bookmark.id === top.id
+                        ) ? (
+                          <FaBookmark className="text-red-500" />
+                        ) : (
+                          <FaBookmark className="text-slate-500" />
+                        )}
                       </div>
                     </Card>
                   </Link>
@@ -110,19 +88,6 @@ function TopRatedComp() {
             </div>
           </Marquee>
         )}
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          // transition: Bounce,
-        />
       </div>
     </section>
   );

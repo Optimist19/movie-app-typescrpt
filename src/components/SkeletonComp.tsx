@@ -1,9 +1,9 @@
 import { Skeleton } from "./ui/skeleton";
-import { useAppSelector } from "@/hooks";
+// import { useAppSelector } from "@/hooks";
 
 function SkeletonComp() {
-  const a = useAppSelector((store) => store.movies);
-  console.log(a, "a");
+  // const a = useAppSelector((store) => store.movies);
+  // console.log(a, "a");
 
   return (
     <div>

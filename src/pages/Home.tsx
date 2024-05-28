@@ -8,7 +8,7 @@ function Home() {
 
   return (
     <section>
-      <div className="overflow-x-hidden">
+      <div className="">
         <SearchBar />
         <TopRatedComp />
         <LastestMovie />
