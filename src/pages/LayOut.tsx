@@ -10,8 +10,9 @@ import { LuLogOut } from "react-icons/lu";
 import { Link, Outlet } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
+import { motion } from "framer-motion";
 
-const film = () =>{
+const film = () => {
   toast("Not available", {
     position: "top-center",
     autoClose: 1000,
@@ -23,9 +24,9 @@ const film = () =>{
     theme: "light"
     // transition: Bounce,
   });
-}
+};
 
-const tv = () =>{
+const tv = () => {
   toast("Not available", {
     position: "top-center",
     autoClose: 1000,
@@ -37,45 +38,55 @@ const tv = () =>{
     theme: "light"
     // transition: Bounce,
   });
-}
+};
 
 function LayOut() {
   return (
     <div>
       <Sidebar className="text-slate-400 navbar">
         <Menu>
-          <div>
-            <MenuItem>
-              <GrMultimedia className="text-2xl" />
-            </MenuItem>
-          </div>
-          <div>
-            <MenuItem>
-              <Link to="/">
-                <LuLayoutDashboard className="text-2xl"/>
-              </Link>
-            </MenuItem>
-            <MenuItem onClick={film}>
-              <FaFilm className="text-2xl" />
-            </MenuItem>
-            <MenuItem onClick={tv}>
-              <PiTelevisionBold className="text-2xl" />
-            </MenuItem>
-            <MenuItem>
-              <Link to="/bookmarks">
-              <LuBookmark className="text-2xl" />
-            </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link to="" />
-              <LuLogOut className="text-2xl" />
-            </MenuItem>
-          </div>
+          <motion.div 
+          initial={{x: -400}}
+          animate={{x: 0}}
+          transition={{
+            delay: 0.5,
+            duration: 0.5,
+            type: "spring",
+            stiffness: 300
+          }}
+
+          >
+            <div>
+              <MenuItem>
+                <GrMultimedia className="text-2xl" />
+              </MenuItem>
+            </div>
+            <div>
+              <MenuItem>
+                <Link to="/">
+                  <LuLayoutDashboard className="text-2xl" />
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={film}>
+                <FaFilm className="text-2xl" />
+              </MenuItem>
+              <MenuItem onClick={tv}>
+                <PiTelevisionBold className="text-2xl" />
+              </MenuItem>
+              <MenuItem>
+                <Link to="/bookmarks">
+                  <LuBookmark className="text-2xl" />
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="" />
+                <LuLogOut className="text-2xl" />
+              </MenuItem>
+            </div>
+          </motion.div>
         </Menu>
       </Sidebar>
       <main>
-        
-
         <div className="ml-[10vw]">
           <Outlet />
         </div>

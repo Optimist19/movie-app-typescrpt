@@ -89,7 +89,7 @@ function MovieDetails() {
       <div className=" w-full h-full relative">
         <div>
           <IoMdArrowRoundBack
-            className="text-3xl cursor-pointer absolute top-3 left-4 z-10"
+            className="text-3xl cursor-pointer absolute top-3 sm:left-4 left-4 z-10"
             onClick={() => navigate(-1)}
           />
         </div>
@@ -118,7 +118,7 @@ function MovieDetails() {
                 {videoData ? renderTrailer() : null}
               </div>
               <div className="py-3 sm:flex sm:justify-center sm:gap-10 px-3 pb-4 absolute bottom-0 ">
-                <div>
+                <div className="sm:pl-11 title">
                   <h1 className="text-2xl font-bold text-slate-300">
                     {data.original_title}
                   </h1>
@@ -126,7 +126,7 @@ function MovieDetails() {
 
                   <div>
                     {data.genres.map((genre, i) => (
-                      <button key={i} className="text-slate-300">
+                      <button key={i} className="text-slate-300 title">
                         {genre.name}
                       </button>
                     ))}
@@ -139,7 +139,7 @@ function MovieDetails() {
                   <div className="flex flex-col">
                     <div className="flex items-center gap-2 mb-2 text-slate-300">
                       <Link to="/bookmarks">
-                        <button className="py-2 px-4 rounded-[25px] border border-orange-800 cursor-pointer ">
+                        <button className="py-2 px-4 rounded-[25px] border border-orange-800 cursor-pointer title">
                           My List
                         </button>
                       </Link>
@@ -176,7 +176,7 @@ function MovieDetails() {
                   </div>
                   {data.production_companies &&
                     data.production_companies.length > 0 && (
-                      <p className="text-slate-300 w-[30vw] text-orange-800 font-bold drop-shadow-lg">
+                      <p className="text-slate-300 w-[30vw] text-orange-800 font-bold title">
                         {data.production_companies[0].name}
                       </p>
                     )}

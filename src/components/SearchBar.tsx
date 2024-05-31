@@ -6,6 +6,8 @@ import { useAppDispatch } from "@/hooks";
 import { searchText ,searchMovieFtn } from "@/features/movieSlice";
 import { useNavigate } from "react-router-dom";
 
+import { motion } from "framer-motion";
+
 function SearchBar() {
   const dispatch = useAppDispatch();
 
@@ -14,7 +16,14 @@ function SearchBar() {
 
   return (
     <div>
-      <div className="py-4 flex items-center gap-x-3 pl-16 top-con w-[85vw] mx-auto">
+      <motion.div className="py-4 flex items-center gap-x-3 pl-16 top-con w-[85vw] mx-auto" 
+      initial={{y: -300}}
+      animate={{y: 0}}
+      transition={{
+        delay: 1,
+        duration: 1
+      }}
+      >
         <label htmlFor="text">
           <CiSearch className="text-2xl" />
         </label>
@@ -39,7 +48,7 @@ function SearchBar() {
             
           }}
         />
-      </div>
+      </motion.div>
     </div>
   );
 }
